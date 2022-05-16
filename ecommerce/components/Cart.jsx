@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import {
   AiOutlineMinus,
@@ -14,6 +15,7 @@ import { urlFor } from "../lib/client";
 import getStripe from '../lib/getStripe';
 
 function Cart() {
+  const router = useRouter()
   const cartRef = useRef(null)
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext()
 
@@ -31,10 +33,10 @@ function Cart() {
     if(response.statusCode === 500) return
 
     const data = await response.json()
-    console.log(data)
     toast.loading('Redirecting...')
 
-    stripe.redirectToCheckout({sessionId: data.id})
+    router.push(data.url)
+    // stripe.redirectToCheckout({sessionId: data.id})
   }
   return (
     <div className="cart-wrapper" ref={cartRef}>
