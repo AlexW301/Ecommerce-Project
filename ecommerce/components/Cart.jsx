@@ -18,6 +18,7 @@ function Cart() {
   const router = useRouter()
   const cartRef = useRef(null)
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext()
+  console.log(totalPrice)
 
   const handleCheckout = async () => {
     const stripe = await getStripe()
